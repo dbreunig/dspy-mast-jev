@@ -1,0 +1,1609 @@
+{
+  "nouls/dev/base": {
+    "modes": {
+      "1.1": {
+        "name": "Disobey task specification",
+        "support": 75,
+        "predicted": 98,
+        "precision": 0.5612244897959183,
+        "recall": 0.7333333333333333,
+        "f1": 0.6358381502890174,
+        "accuracy": 0.7428571428571429
+      },
+      "1.2": {
+        "name": "Disobey role specification",
+        "support": 15,
+        "predicted": 56,
+        "precision": 0.21428571428571427,
+        "recall": 0.8,
+        "f1": 0.3380281690140845,
+        "accuracy": 0.8081632653061225
+      },
+      "1.3": {
+        "name": "Step repetition",
+        "support": 100,
+        "predicted": 116,
+        "precision": 0.7672413793103449,
+        "recall": 0.89,
+        "f1": 0.8240740740740741,
+        "accuracy": 0.8448979591836735
+      },
+      "1.4": {
+        "name": "Loss of conversation history",
+        "support": 21,
+        "predicted": 54,
+        "precision": 0.3148148148148148,
+        "recall": 0.8095238095238095,
+        "f1": 0.4533333333333333,
+        "accuracy": 0.8326530612244898
+      },
+      "1.5": {
+        "name": "Unaware of termination conditions",
+        "support": 67,
+        "predicted": 61,
+        "precision": 0.9016393442622951,
+        "recall": 0.8208955223880597,
+        "f1": 0.8593750000000001,
+        "accuracy": 0.926530612244898
+      },
+      "2.1": {
+        "name": "Conversation reset",
+        "support": 14,
+        "predicted": 36,
+        "precision": 0.3333333333333333,
+        "recall": 0.8571428571428571,
+        "f1": 0.48,
+        "accuracy": 0.8938775510204081
+      },
+      "2.2": {
+        "name": "Fail to ask for clarification",
+        "support": 35,
+        "predicted": 117,
+        "precision": 0.23931623931623933,
+        "recall": 0.8,
+        "f1": 0.3684210526315789,
+        "accuracy": 0.6081632653061224
+      },
+      "2.3": {
+        "name": "Task derailment",
+        "support": 48,
+        "predicted": 41,
+        "precision": 0.6829268292682927,
+        "recall": 0.5833333333333334,
+        "f1": 0.6292134831460675,
+        "accuracy": 0.8653061224489796
+      },
+      "2.4": {
+        "name": "Information withholding",
+        "support": 1,
+        "predicted": 57,
+        "precision": 0.017543859649122806,
+        "recall": 1.0,
+        "f1": 0.034482758620689655,
+        "accuracy": 0.7714285714285715
+      },
+      "2.5": {
+        "name": "Ignored other agent's input",
+        "support": 55,
+        "predicted": 66,
+        "precision": 0.5757575757575758,
+        "recall": 0.6909090909090909,
+        "f1": 0.6280991735537191,
+        "accuracy": 0.8163265306122449
+      },
+      "2.6": {
+        "name": "Action-reasoning mismatch",
+        "support": 85,
+        "predicted": 87,
+        "precision": 0.6091954022988506,
+        "recall": 0.6235294117647059,
+        "f1": 0.6162790697674418,
+        "accuracy": 0.7306122448979592
+      },
+      "3.1": {
+        "name": "Premature termination",
+        "support": 38,
+        "predicted": 148,
+        "precision": 0.23648648648648649,
+        "recall": 0.9210526315789473,
+        "f1": 0.3763440860215054,
+        "accuracy": 0.5265306122448979
+      },
+      "3.2": {
+        "name": "No or incomplete verification",
+        "support": 97,
+        "predicted": 209,
+        "precision": 0.44976076555023925,
+        "recall": 0.9690721649484536,
+        "f1": 0.6143790849673203,
+        "accuracy": 0.5183673469387755
+      },
+      "3.3": {
+        "name": "Incorrect verification",
+        "support": 94,
+        "predicted": 87,
+        "precision": 0.5172413793103449,
+        "recall": 0.4787234042553192,
+        "f1": 0.49723756906077354,
+        "accuracy": 0.6285714285714286
+      }
+    },
+    "macro_f1": 0.5253646431771147,
+    "micro_f1": 0.5682507583417593,
+    "mean_accuracy": 0.7510204081632653,
+    "trace_f1": 0.4562370806249978,
+    "n": 245
+  },
+  "nouls/fitted": {
+    "train_score_before": 0.7331,
+    "train_score": 0.7572,
+    "fitted": [
+      {
+        "predictor": "judge_window",
+        "field": "disobey_task_spec",
+        "parameter": "threshold",
+        "value": 0.44,
+        "train_score": 0.7346,
+        "train_score_at_start": 0.7331,
+        "observed": {
+          "calls": 1205,
+          "distinct": 91,
+          "min": 0.06,
+          "max": 0.97,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.7331
+      },
+      {
+        "predictor": "judge_window",
+        "field": "disobey_role_spec",
+        "parameter": "threshold",
+        "train_score": 0.7346,
+        "train_score_at_start": 0.7346,
+        "observed": {
+          "calls": 1205,
+          "distinct": 79,
+          "min": 0.07,
+          "max": 0.86,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 1
+        },
+        "train_score_original": 0.7346,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_window",
+        "field": "step_repetition",
+        "parameter": "threshold",
+        "train_score": 0.7346,
+        "train_score_at_start": 0.7346,
+        "observed": {
+          "calls": 1205,
+          "distinct": 94,
+          "min": 0.04,
+          "max": 0.97,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 1
+        },
+        "train_score_original": 0.7346,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_window",
+        "field": "loss_of_history",
+        "parameter": "threshold",
+        "train_score": 0.7346,
+        "train_score_at_start": 0.7346,
+        "observed": {
+          "calls": 1205,
+          "distinct": 83,
+          "min": 0.03,
+          "max": 0.9,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 1
+        },
+        "train_score_original": 0.7346,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_window",
+        "field": "unaware_of_termination",
+        "parameter": "threshold",
+        "value": 0.47,
+        "train_score": 0.7364,
+        "train_score_at_start": 0.7346,
+        "observed": {
+          "calls": 1205,
+          "distinct": 89,
+          "min": 0.04,
+          "max": 0.92,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.7346
+      },
+      {
+        "predictor": "judge_window",
+        "field": "conversation_reset",
+        "parameter": "threshold",
+        "value": 0.29,
+        "train_score": 0.7395,
+        "train_score_at_start": 0.7364,
+        "observed": {
+          "calls": 1205,
+          "distinct": 79,
+          "min": 0.03,
+          "max": 0.95,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.7364
+      },
+      {
+        "predictor": "judge_window",
+        "field": "fail_to_clarify",
+        "parameter": "threshold",
+        "value": 0.43,
+        "train_score": 0.7413,
+        "train_score_at_start": 0.7395,
+        "observed": {
+          "calls": 1205,
+          "distinct": 89,
+          "min": 0.05,
+          "max": 0.94,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.7395
+      },
+      {
+        "predictor": "judge_window",
+        "field": "task_derailment",
+        "parameter": "threshold",
+        "value": 0.16,
+        "train_score": 0.7484,
+        "train_score_at_start": 0.7413,
+        "observed": {
+          "calls": 1205,
+          "distinct": 94,
+          "min": 0.03,
+          "max": 0.97,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.7413
+      },
+      {
+        "predictor": "judge_window",
+        "field": "info_withholding",
+        "parameter": "threshold",
+        "train_score": 0.7484,
+        "train_score_at_start": 0.7484,
+        "observed": {
+          "calls": 1205,
+          "distinct": 82,
+          "min": 0.08,
+          "max": 0.91,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 0
+        },
+        "train_score_original": 0.7484,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_window",
+        "field": "ignored_input",
+        "parameter": "threshold",
+        "train_score": 0.7484,
+        "train_score_at_start": 0.7484,
+        "observed": {
+          "calls": 1205,
+          "distinct": 91,
+          "min": 0.04,
+          "max": 0.95,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 1
+        },
+        "train_score_original": 0.7484,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_window",
+        "field": "reasoning_action_mismatch",
+        "parameter": "threshold",
+        "train_score": 0.7484,
+        "train_score_at_start": 0.7484,
+        "observed": {
+          "calls": 1205,
+          "distinct": 89,
+          "min": 0.05,
+          "max": 0.93,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 1
+        },
+        "train_score_original": 0.7484,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_window",
+        "field": "premature_termination",
+        "parameter": "threshold",
+        "value": 0.67,
+        "train_score": 0.752,
+        "train_score_at_start": 0.7484,
+        "observed": {
+          "calls": 1205,
+          "distinct": 93,
+          "min": 0.05,
+          "max": 0.97,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.7484
+      },
+      {
+        "predictor": "judge_window",
+        "field": "no_or_incomplete_verification",
+        "parameter": "threshold",
+        "train_score": 0.752,
+        "train_score_at_start": 0.752,
+        "observed": {
+          "calls": 1205,
+          "distinct": 71,
+          "min": 0.18,
+          "max": 0.94,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 1
+        },
+        "train_score_original": 0.752,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_window",
+        "field": "incorrect_verification",
+        "parameter": "threshold",
+        "value": 0.39,
+        "train_score": 0.7572,
+        "train_score_at_start": 0.752,
+        "observed": {
+          "calls": 1205,
+          "distinct": 89,
+          "min": 0.08,
+          "max": 0.96,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.752
+      }
+    ],
+    "val_score_before": 0.7718,
+    "val_score": 0.7799
+  },
+  "nouls/dev/calibrated": {
+    "modes": {
+      "1.1": {
+        "name": "Disobey task specification",
+        "support": 75,
+        "predicted": 106,
+        "precision": 0.5283018867924528,
+        "recall": 0.7466666666666667,
+        "f1": 0.6187845303867403,
+        "accuracy": 0.7183673469387755
+      },
+      "1.2": {
+        "name": "Disobey role specification",
+        "support": 15,
+        "predicted": 56,
+        "precision": 0.21428571428571427,
+        "recall": 0.8,
+        "f1": 0.3380281690140845,
+        "accuracy": 0.8081632653061225
+      },
+      "1.3": {
+        "name": "Step repetition",
+        "support": 100,
+        "predicted": 116,
+        "precision": 0.7672413793103449,
+        "recall": 0.89,
+        "f1": 0.8240740740740741,
+        "accuracy": 0.8448979591836735
+      },
+      "1.4": {
+        "name": "Loss of conversation history",
+        "support": 21,
+        "predicted": 54,
+        "precision": 0.3148148148148148,
+        "recall": 0.8095238095238095,
+        "f1": 0.4533333333333333,
+        "accuracy": 0.8326530612244898
+      },
+      "1.5": {
+        "name": "Unaware of termination conditions",
+        "support": 67,
+        "predicted": 66,
+        "precision": 0.8484848484848485,
+        "recall": 0.835820895522388,
+        "f1": 0.8421052631578948,
+        "accuracy": 0.9142857142857143
+      },
+      "2.1": {
+        "name": "Conversation reset",
+        "support": 14,
+        "predicted": 59,
+        "precision": 0.22033898305084745,
+        "recall": 0.9285714285714286,
+        "f1": 0.3561643835616438,
+        "accuracy": 0.8081632653061225
+      },
+      "2.2": {
+        "name": "Fail to ask for clarification",
+        "support": 35,
+        "predicted": 134,
+        "precision": 0.2462686567164179,
+        "recall": 0.9428571428571428,
+        "f1": 0.3905325443786982,
+        "accuracy": 0.5795918367346938
+      },
+      "2.3": {
+        "name": "Task derailment",
+        "support": 48,
+        "predicted": 96,
+        "precision": 0.4583333333333333,
+        "recall": 0.9166666666666666,
+        "f1": 0.611111111111111,
+        "accuracy": 0.7714285714285715
+      },
+      "2.4": {
+        "name": "Information withholding",
+        "support": 1,
+        "predicted": 57,
+        "precision": 0.017543859649122806,
+        "recall": 1.0,
+        "f1": 0.034482758620689655,
+        "accuracy": 0.7714285714285715
+      },
+      "2.5": {
+        "name": "Ignored other agent's input",
+        "support": 55,
+        "predicted": 66,
+        "precision": 0.5757575757575758,
+        "recall": 0.6909090909090909,
+        "f1": 0.6280991735537191,
+        "accuracy": 0.8163265306122449
+      },
+      "2.6": {
+        "name": "Action-reasoning mismatch",
+        "support": 85,
+        "predicted": 87,
+        "precision": 0.6091954022988506,
+        "recall": 0.6235294117647059,
+        "f1": 0.6162790697674418,
+        "accuracy": 0.7306122448979592
+      },
+      "3.1": {
+        "name": "Premature termination",
+        "support": 38,
+        "predicted": 111,
+        "precision": 0.27927927927927926,
+        "recall": 0.8157894736842105,
+        "f1": 0.4161073825503355,
+        "accuracy": 0.6448979591836734
+      },
+      "3.2": {
+        "name": "No or incomplete verification",
+        "support": 97,
+        "predicted": 209,
+        "precision": 0.44976076555023925,
+        "recall": 0.9690721649484536,
+        "f1": 0.6143790849673203,
+        "accuracy": 0.5183673469387755
+      },
+      "3.3": {
+        "name": "Incorrect verification",
+        "support": 94,
+        "predicted": 120,
+        "precision": 0.5166666666666667,
+        "recall": 0.6595744680851063,
+        "f1": 0.5794392523364487,
+        "accuracy": 0.6326530612244898
+      }
+    },
+    "macro_f1": 0.5230657236295382,
+    "micro_f1": 0.5754082612872238,
+    "mean_accuracy": 0.742274052478134,
+    "trace_f1": 0.4579794527590781,
+    "n": 245
+  },
+  "nouls+ladder/dev/base": {
+    "modes": {
+      "1.1": {
+        "name": "Disobey task specification",
+        "support": 75,
+        "predicted": 98,
+        "precision": 0.5612244897959183,
+        "recall": 0.7333333333333333,
+        "f1": 0.6358381502890174,
+        "accuracy": 0.7428571428571429
+      },
+      "1.2": {
+        "name": "Disobey role specification",
+        "support": 15,
+        "predicted": 59,
+        "precision": 0.15254237288135594,
+        "recall": 0.6,
+        "f1": 0.24324324324324323,
+        "accuracy": 0.7714285714285715
+      },
+      "1.3": {
+        "name": "Step repetition",
+        "support": 100,
+        "predicted": 116,
+        "precision": 0.7672413793103449,
+        "recall": 0.89,
+        "f1": 0.8240740740740741,
+        "accuracy": 0.8448979591836735
+      },
+      "1.4": {
+        "name": "Loss of conversation history",
+        "support": 21,
+        "predicted": 54,
+        "precision": 0.3148148148148148,
+        "recall": 0.8095238095238095,
+        "f1": 0.4533333333333333,
+        "accuracy": 0.8326530612244898
+      },
+      "1.5": {
+        "name": "Unaware of termination conditions",
+        "support": 67,
+        "predicted": 61,
+        "precision": 0.9016393442622951,
+        "recall": 0.8208955223880597,
+        "f1": 0.8593750000000001,
+        "accuracy": 0.926530612244898
+      },
+      "2.1": {
+        "name": "Conversation reset",
+        "support": 14,
+        "predicted": 36,
+        "precision": 0.3333333333333333,
+        "recall": 0.8571428571428571,
+        "f1": 0.48,
+        "accuracy": 0.8938775510204081
+      },
+      "2.2": {
+        "name": "Fail to ask for clarification",
+        "support": 35,
+        "predicted": 117,
+        "precision": 0.23931623931623933,
+        "recall": 0.8,
+        "f1": 0.3684210526315789,
+        "accuracy": 0.6081632653061224
+      },
+      "2.3": {
+        "name": "Task derailment",
+        "support": 48,
+        "predicted": 41,
+        "precision": 0.6829268292682927,
+        "recall": 0.5833333333333334,
+        "f1": 0.6292134831460675,
+        "accuracy": 0.8653061224489796
+      },
+      "2.4": {
+        "name": "Information withholding",
+        "support": 1,
+        "predicted": 57,
+        "precision": 0.017543859649122806,
+        "recall": 1.0,
+        "f1": 0.034482758620689655,
+        "accuracy": 0.7714285714285715
+      },
+      "2.5": {
+        "name": "Ignored other agent's input",
+        "support": 55,
+        "predicted": 66,
+        "precision": 0.5757575757575758,
+        "recall": 0.6909090909090909,
+        "f1": 0.6280991735537191,
+        "accuracy": 0.8163265306122449
+      },
+      "2.6": {
+        "name": "Action-reasoning mismatch",
+        "support": 85,
+        "predicted": 87,
+        "precision": 0.6091954022988506,
+        "recall": 0.6235294117647059,
+        "f1": 0.6162790697674418,
+        "accuracy": 0.7306122448979592
+      },
+      "3.1": {
+        "name": "Premature termination",
+        "support": 38,
+        "predicted": 148,
+        "precision": 0.23648648648648649,
+        "recall": 0.9210526315789473,
+        "f1": 0.3763440860215054,
+        "accuracy": 0.5265306122448979
+      },
+      "3.2": {
+        "name": "No or incomplete verification",
+        "support": 97,
+        "predicted": 199,
+        "precision": 0.4824120603015075,
+        "recall": 0.9896907216494846,
+        "f1": 0.6486486486486487,
+        "accuracy": 0.5755102040816327
+      },
+      "3.3": {
+        "name": "Incorrect verification",
+        "support": 94,
+        "predicted": 87,
+        "precision": 0.5172413793103449,
+        "recall": 0.4787234042553192,
+        "f1": 0.49723756906077354,
+        "accuracy": 0.6285714285714286
+      }
+    },
+    "macro_f1": 0.5210421173135781,
+    "micro_f1": 0.5692541856925418,
+    "mean_accuracy": 0.7524781341107872,
+    "trace_f1": 0.4865151683397444,
+    "n": 245
+  },
+  "nouls+ladder/fitted": {
+    "train_score_before": 0.7381,
+    "train_score": 0.7693,
+    "fitted": [
+      {
+        "predictor": "judge_window",
+        "field": "disobey_task_spec",
+        "parameter": "threshold",
+        "value": 0.44,
+        "train_score": 0.7396,
+        "train_score_at_start": 0.7381,
+        "observed": {
+          "calls": 1205,
+          "distinct": 91,
+          "min": 0.06,
+          "max": 0.97,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.7381
+      },
+      {
+        "predictor": "judge_window",
+        "field": "disobey_role_spec",
+        "parameter": "threshold",
+        "train_score": 0.7396,
+        "train_score_at_start": 0.7396,
+        "observed": {
+          "calls": 1205,
+          "distinct": 79,
+          "min": 0.07,
+          "max": 0.86,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 0
+        },
+        "train_score_original": 0.7396,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_window",
+        "field": "step_repetition",
+        "parameter": "threshold",
+        "train_score": 0.7396,
+        "train_score_at_start": 0.7396,
+        "observed": {
+          "calls": 1205,
+          "distinct": 94,
+          "min": 0.04,
+          "max": 0.97,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 1
+        },
+        "train_score_original": 0.7396,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_window",
+        "field": "loss_of_history",
+        "parameter": "threshold",
+        "train_score": 0.7396,
+        "train_score_at_start": 0.7396,
+        "observed": {
+          "calls": 1205,
+          "distinct": 83,
+          "min": 0.03,
+          "max": 0.9,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 1
+        },
+        "train_score_original": 0.7396,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_window",
+        "field": "unaware_of_termination",
+        "parameter": "threshold",
+        "value": 0.47,
+        "train_score": 0.7415,
+        "train_score_at_start": 0.7396,
+        "observed": {
+          "calls": 1205,
+          "distinct": 89,
+          "min": 0.04,
+          "max": 0.92,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.7396
+      },
+      {
+        "predictor": "judge_window",
+        "field": "conversation_reset",
+        "parameter": "threshold",
+        "value": 0.29,
+        "train_score": 0.7445,
+        "train_score_at_start": 0.7415,
+        "observed": {
+          "calls": 1205,
+          "distinct": 79,
+          "min": 0.03,
+          "max": 0.95,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.7415
+      },
+      {
+        "predictor": "judge_window",
+        "field": "fail_to_clarify",
+        "parameter": "threshold",
+        "value": 0.43,
+        "train_score": 0.7463,
+        "train_score_at_start": 0.7445,
+        "observed": {
+          "calls": 1205,
+          "distinct": 89,
+          "min": 0.05,
+          "max": 0.94,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.7445
+      },
+      {
+        "predictor": "judge_window",
+        "field": "task_derailment",
+        "parameter": "threshold",
+        "value": 0.16,
+        "train_score": 0.7535,
+        "train_score_at_start": 0.7463,
+        "observed": {
+          "calls": 1205,
+          "distinct": 94,
+          "min": 0.03,
+          "max": 0.97,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.7463
+      },
+      {
+        "predictor": "judge_window",
+        "field": "info_withholding",
+        "parameter": "threshold",
+        "train_score": 0.7535,
+        "train_score_at_start": 0.7535,
+        "observed": {
+          "calls": 1205,
+          "distinct": 82,
+          "min": 0.08,
+          "max": 0.91,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 0
+        },
+        "train_score_original": 0.7535,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_window",
+        "field": "ignored_input",
+        "parameter": "threshold",
+        "train_score": 0.7535,
+        "train_score_at_start": 0.7535,
+        "observed": {
+          "calls": 1205,
+          "distinct": 91,
+          "min": 0.04,
+          "max": 0.95,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 1
+        },
+        "train_score_original": 0.7535,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_window",
+        "field": "reasoning_action_mismatch",
+        "parameter": "threshold",
+        "train_score": 0.7535,
+        "train_score_at_start": 0.7535,
+        "observed": {
+          "calls": 1205,
+          "distinct": 89,
+          "min": 0.05,
+          "max": 0.93,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 1
+        },
+        "train_score_original": 0.7535,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_window",
+        "field": "premature_termination",
+        "parameter": "threshold",
+        "value": 0.67,
+        "train_score": 0.757,
+        "train_score_at_start": 0.7535,
+        "observed": {
+          "calls": 1205,
+          "distinct": 93,
+          "min": 0.05,
+          "max": 0.97,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.7535
+      },
+      {
+        "predictor": "judge_window",
+        "field": "no_or_incomplete_verification",
+        "parameter": "threshold",
+        "train_score": 0.757,
+        "train_score_at_start": 0.757,
+        "observed": {
+          "calls": 1205,
+          "distinct": 71,
+          "min": 0.18,
+          "max": 0.94,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 0
+        },
+        "train_score_original": 0.757,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_window",
+        "field": "incorrect_verification",
+        "parameter": "threshold",
+        "value": 0.39,
+        "train_score": 0.7622,
+        "train_score_at_start": 0.757,
+        "observed": {
+          "calls": 1205,
+          "distinct": 89,
+          "min": 0.08,
+          "max": 0.96,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.757
+      },
+      {
+        "predictor": "judge_ladder",
+        "field": "check_present",
+        "parameter": "threshold",
+        "value": 0.14,
+        "train_score": 0.7631,
+        "train_score_at_start": 0.7622,
+        "observed": {
+          "calls": 1205,
+          "distinct": 95,
+          "min": 0.03,
+          "max": 0.98,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.7622
+      },
+      {
+        "predictor": "judge_ladder",
+        "field": "check_executed",
+        "parameter": "threshold",
+        "train_score": 0.7631,
+        "train_score_at_start": 0.7631,
+        "observed": {
+          "calls": 1205,
+          "distinct": 90,
+          "min": 0.02,
+          "max": 0.98,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 0
+        },
+        "train_score_original": 0.7631,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_ladder",
+        "field": "check_requirements",
+        "parameter": "threshold",
+        "train_score": 0.7631,
+        "train_score_at_start": 0.7631,
+        "observed": {
+          "calls": 1205,
+          "distinct": 96,
+          "min": 0.02,
+          "max": 0.97,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 0
+        },
+        "train_score_original": 0.7631,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_ladder",
+        "field": "check_surface",
+        "parameter": "threshold",
+        "train_score": 0.7631,
+        "train_score_at_start": 0.7631,
+        "observed": {
+          "calls": 1205,
+          "distinct": 59,
+          "min": 0.02,
+          "max": 0.84,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 0
+        },
+        "train_score_original": 0.7631,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_ladder",
+        "field": "wrong_pass",
+        "parameter": "threshold",
+        "train_score": 0.7631,
+        "train_score_at_start": 0.7631,
+        "observed": {
+          "calls": 1205,
+          "distinct": 95,
+          "min": 0.03,
+          "max": 0.97,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 0
+        },
+        "train_score_original": 0.7631,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_ladder",
+        "field": "unchecked_result",
+        "parameter": "threshold",
+        "value": 0.82,
+        "train_score": 0.7676,
+        "train_score_at_start": 0.7631,
+        "observed": {
+          "calls": 1205,
+          "distinct": 90,
+          "min": 0.04,
+          "max": 0.93,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.7631
+      },
+      {
+        "predictor": "judge_ladder",
+        "field": "check_skipped",
+        "parameter": "threshold",
+        "value": 0.37,
+        "train_score": 0.7693,
+        "train_score_at_start": 0.7676,
+        "observed": {
+          "calls": 1205,
+          "distinct": 90,
+          "min": 0.03,
+          "max": 0.94,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 1,
+          "failed": 0
+        },
+        "train_score_original": 0.7676
+      },
+      {
+        "predictor": "judge_ladder",
+        "field": "roles_defined",
+        "parameter": "threshold",
+        "train_score": 0.7693,
+        "train_score_at_start": 0.7693,
+        "observed": {
+          "calls": 1205,
+          "distinct": 75,
+          "min": 0.1,
+          "max": 0.96,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 1
+        },
+        "train_score_original": 0.7693,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_ladder",
+        "field": "does_other_job",
+        "parameter": "threshold",
+        "train_score": 0.7693,
+        "train_score_at_start": 0.7693,
+        "observed": {
+          "calls": 1205,
+          "distinct": 72,
+          "min": 0.1,
+          "max": 0.85,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 1
+        },
+        "train_score_original": 0.7693,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_ladder",
+        "field": "refuses_own_job",
+        "parameter": "threshold",
+        "train_score": 0.7693,
+        "train_score_at_start": 0.7693,
+        "observed": {
+          "calls": 1205,
+          "distinct": 87,
+          "min": 0.05,
+          "max": 0.93,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 1
+        },
+        "train_score_original": 0.7693,
+        "skipped": "fitted behavior did not beat the original"
+      },
+      {
+        "predictor": "judge_ladder",
+        "field": "speaks_as_other",
+        "parameter": "threshold",
+        "train_score": 0.7693,
+        "train_score_at_start": 0.7693,
+        "observed": {
+          "calls": 1205,
+          "distinct": 88,
+          "min": 0.06,
+          "max": 0.95,
+          "candidates": 40
+        },
+        "fold_check": {
+          "passed": 0,
+          "failed": 1
+        },
+        "train_score_original": 0.7693,
+        "skipped": "fitted behavior did not beat the original"
+      }
+    ],
+    "val_score_before": 0.7614,
+    "val_score": 0.7755
+  },
+  "nouls+ladder/dev/calibrated": {
+    "modes": {
+      "1.1": {
+        "name": "Disobey task specification",
+        "support": 75,
+        "predicted": 106,
+        "precision": 0.5283018867924528,
+        "recall": 0.7466666666666667,
+        "f1": 0.6187845303867403,
+        "accuracy": 0.7183673469387755
+      },
+      "1.2": {
+        "name": "Disobey role specification",
+        "support": 15,
+        "predicted": 59,
+        "precision": 0.15254237288135594,
+        "recall": 0.6,
+        "f1": 0.24324324324324323,
+        "accuracy": 0.7714285714285715
+      },
+      "1.3": {
+        "name": "Step repetition",
+        "support": 100,
+        "predicted": 116,
+        "precision": 0.7672413793103449,
+        "recall": 0.89,
+        "f1": 0.8240740740740741,
+        "accuracy": 0.8448979591836735
+      },
+      "1.4": {
+        "name": "Loss of conversation history",
+        "support": 21,
+        "predicted": 54,
+        "precision": 0.3148148148148148,
+        "recall": 0.8095238095238095,
+        "f1": 0.4533333333333333,
+        "accuracy": 0.8326530612244898
+      },
+      "1.5": {
+        "name": "Unaware of termination conditions",
+        "support": 67,
+        "predicted": 66,
+        "precision": 0.8484848484848485,
+        "recall": 0.835820895522388,
+        "f1": 0.8421052631578948,
+        "accuracy": 0.9142857142857143
+      },
+      "2.1": {
+        "name": "Conversation reset",
+        "support": 14,
+        "predicted": 59,
+        "precision": 0.22033898305084745,
+        "recall": 0.9285714285714286,
+        "f1": 0.3561643835616438,
+        "accuracy": 0.8081632653061225
+      },
+      "2.2": {
+        "name": "Fail to ask for clarification",
+        "support": 35,
+        "predicted": 134,
+        "precision": 0.2462686567164179,
+        "recall": 0.9428571428571428,
+        "f1": 0.3905325443786982,
+        "accuracy": 0.5795918367346938
+      },
+      "2.3": {
+        "name": "Task derailment",
+        "support": 48,
+        "predicted": 96,
+        "precision": 0.4583333333333333,
+        "recall": 0.9166666666666666,
+        "f1": 0.611111111111111,
+        "accuracy": 0.7714285714285715
+      },
+      "2.4": {
+        "name": "Information withholding",
+        "support": 1,
+        "predicted": 57,
+        "precision": 0.017543859649122806,
+        "recall": 1.0,
+        "f1": 0.034482758620689655,
+        "accuracy": 0.7714285714285715
+      },
+      "2.5": {
+        "name": "Ignored other agent's input",
+        "support": 55,
+        "predicted": 66,
+        "precision": 0.5757575757575758,
+        "recall": 0.6909090909090909,
+        "f1": 0.6280991735537191,
+        "accuracy": 0.8163265306122449
+      },
+      "2.6": {
+        "name": "Action-reasoning mismatch",
+        "support": 85,
+        "predicted": 87,
+        "precision": 0.6091954022988506,
+        "recall": 0.6235294117647059,
+        "f1": 0.6162790697674418,
+        "accuracy": 0.7306122448979592
+      },
+      "3.1": {
+        "name": "Premature termination",
+        "support": 38,
+        "predicted": 111,
+        "precision": 0.27927927927927926,
+        "recall": 0.8157894736842105,
+        "f1": 0.4161073825503355,
+        "accuracy": 0.6448979591836734
+      },
+      "3.2": {
+        "name": "No or incomplete verification",
+        "support": 97,
+        "predicted": 156,
+        "precision": 0.5705128205128205,
+        "recall": 0.9175257731958762,
+        "f1": 0.7035573122529643,
+        "accuracy": 0.6938775510204082
+      },
+      "3.3": {
+        "name": "Incorrect verification",
+        "support": 94,
+        "predicted": 120,
+        "precision": 0.5166666666666667,
+        "recall": 0.6595744680851063,
+        "f1": 0.5794392523364487,
+        "accuracy": 0.6326530612244898
+      }
+    },
+    "macro_f1": 0.5226652451663099,
+    "micro_f1": 0.5816929133858267,
+    "mean_accuracy": 0.7521865889212828,
+    "trace_f1": 0.5126400646070912,
+    "n": 245
+  },
+  "selected": "nouls",
+  "test/base": {
+    "modes": {
+      "1.1": {
+        "name": "Disobey task specification",
+        "support": 386,
+        "predicted": 422,
+        "precision": 0.6469194312796208,
+        "recall": 0.7072538860103627,
+        "f1": 0.6757425742574258,
+        "accuracy": 0.7546816479400749
+      },
+      "1.2": {
+        "name": "Disobey role specification",
+        "support": 65,
+        "predicted": 257,
+        "precision": 0.15953307392996108,
+        "recall": 0.6307692307692307,
+        "f1": 0.2546583850931677,
+        "accuracy": 0.7752808988764045
+      },
+      "1.3": {
+        "name": "Step repetition",
+        "support": 421,
+        "predicted": 453,
+        "precision": 0.8211920529801324,
+        "recall": 0.8836104513064132,
+        "f1": 0.8512585812356978,
+        "accuracy": 0.8782771535580525
+      },
+      "1.4": {
+        "name": "Loss of conversation history",
+        "support": 78,
+        "predicted": 186,
+        "precision": 0.3333333333333333,
+        "recall": 0.7948717948717948,
+        "f1": 0.4696969696969696,
+        "accuracy": 0.8689138576779026
+      },
+      "1.5": {
+        "name": "Unaware of termination conditions",
+        "support": 277,
+        "predicted": 274,
+        "precision": 0.8175182481751825,
+        "recall": 0.8086642599277978,
+        "f1": 0.8130671506352087,
+        "accuracy": 0.903558052434457
+      },
+      "2.1": {
+        "name": "Conversation reset",
+        "support": 52,
+        "predicted": 157,
+        "precision": 0.267515923566879,
+        "recall": 0.8076923076923077,
+        "f1": 0.40191387559808617,
+        "accuracy": 0.8829588014981273
+      },
+      "2.2": {
+        "name": "Fail to ask for clarification",
+        "support": 170,
+        "predicted": 503,
+        "precision": 0.27634194831013914,
+        "recall": 0.8176470588235294,
+        "f1": 0.413075780089153,
+        "accuracy": 0.6301498127340824
+      },
+      "2.3": {
+        "name": "Task derailment",
+        "support": 234,
+        "predicted": 208,
+        "precision": 0.6682692307692307,
+        "recall": 0.594017094017094,
+        "f1": 0.6289592760180995,
+        "accuracy": 0.846441947565543
+      },
+      "2.4": {
+        "name": "Information withholding",
+        "support": 15,
+        "predicted": 254,
+        "precision": 0.05511811023622047,
+        "recall": 0.9333333333333333,
+        "f1": 0.10408921933085502,
+        "accuracy": 0.7743445692883895
+      },
+      "2.5": {
+        "name": "Ignored other agent's input",
+        "support": 240,
+        "predicted": 271,
+        "precision": 0.5424354243542435,
+        "recall": 0.6125,
+        "f1": 0.5753424657534246,
+        "accuracy": 0.7968164794007491
+      },
+      "2.6": {
+        "name": "Action-reasoning mismatch",
+        "support": 393,
+        "predicted": 377,
+        "precision": 0.6074270557029178,
+        "recall": 0.5826972010178118,
+        "f1": 0.5948051948051948,
+        "accuracy": 0.7078651685393258
+      },
+      "3.1": {
+        "name": "Premature termination",
+        "support": 183,
+        "predicted": 639,
+        "precision": 0.27543035993740217,
+        "recall": 0.9617486338797814,
+        "f1": 0.42822384428223836,
+        "accuracy": 0.5599250936329588
+      },
+      "3.2": {
+        "name": "No or incomplete verification",
+        "support": 383,
+        "predicted": 937,
+        "precision": 0.39167556029882605,
+        "recall": 0.95822454308094,
+        "f1": 0.5560606060606061,
+        "accuracy": 0.45131086142322097
+      },
+      "3.3": {
+        "name": "Incorrect verification",
+        "support": 429,
+        "predicted": 418,
+        "precision": 0.5047846889952153,
+        "recall": 0.49184149184149184,
+        "f1": 0.4982290436835891,
+        "accuracy": 0.6020599250936329
+      }
+    },
+    "macro_f1": 0.5189373547528369,
+    "micro_f1": 0.5611610228058052,
+    "mean_accuracy": 0.7451845906902087,
+    "trace_f1": 0.44957147237560807,
+    "n": 1068
+  },
+  "test/calibrated": {
+    "modes": {
+      "1.1": {
+        "name": "Disobey task specification",
+        "support": 386,
+        "predicted": 489,
+        "precision": 0.6053169734151329,
+        "recall": 0.7668393782383419,
+        "f1": 0.6765714285714286,
+        "accuracy": 0.7350187265917603
+      },
+      "1.2": {
+        "name": "Disobey role specification",
+        "support": 65,
+        "predicted": 257,
+        "precision": 0.15953307392996108,
+        "recall": 0.6307692307692307,
+        "f1": 0.2546583850931677,
+        "accuracy": 0.7752808988764045
+      },
+      "1.3": {
+        "name": "Step repetition",
+        "support": 421,
+        "predicted": 453,
+        "precision": 0.8211920529801324,
+        "recall": 0.8836104513064132,
+        "f1": 0.8512585812356978,
+        "accuracy": 0.8782771535580525
+      },
+      "1.4": {
+        "name": "Loss of conversation history",
+        "support": 78,
+        "predicted": 186,
+        "precision": 0.3333333333333333,
+        "recall": 0.7948717948717948,
+        "f1": 0.4696969696969696,
+        "accuracy": 0.8689138576779026
+      },
+      "1.5": {
+        "name": "Unaware of termination conditions",
+        "support": 277,
+        "predicted": 296,
+        "precision": 0.7804054054054054,
+        "recall": 0.8339350180505415,
+        "f1": 0.806282722513089,
+        "accuracy": 0.8960674157303371
+      },
+      "2.1": {
+        "name": "Conversation reset",
+        "support": 52,
+        "predicted": 251,
+        "precision": 0.19123505976095617,
+        "recall": 0.9230769230769231,
+        "f1": 0.3168316831683168,
+        "accuracy": 0.8061797752808989
+      },
+      "2.2": {
+        "name": "Fail to ask for clarification",
+        "support": 170,
+        "predicted": 575,
+        "precision": 0.26260869565217393,
+        "recall": 0.888235294117647,
+        "f1": 0.40536912751677856,
+        "accuracy": 0.5852059925093633
+      },
+      "2.3": {
+        "name": "Task derailment",
+        "support": 234,
+        "predicted": 413,
+        "precision": 0.4939467312348668,
+        "recall": 0.8717948717948718,
+        "f1": 0.6306027820710973,
+        "accuracy": 0.7762172284644194
+      },
+      "2.4": {
+        "name": "Information withholding",
+        "support": 15,
+        "predicted": 254,
+        "precision": 0.05511811023622047,
+        "recall": 0.9333333333333333,
+        "f1": 0.10408921933085502,
+        "accuracy": 0.7743445692883895
+      },
+      "2.5": {
+        "name": "Ignored other agent's input",
+        "support": 240,
+        "predicted": 271,
+        "precision": 0.5424354243542435,
+        "recall": 0.6125,
+        "f1": 0.5753424657534246,
+        "accuracy": 0.7968164794007491
+      },
+      "2.6": {
+        "name": "Action-reasoning mismatch",
+        "support": 393,
+        "predicted": 377,
+        "precision": 0.6074270557029178,
+        "recall": 0.5826972010178118,
+        "f1": 0.5948051948051948,
+        "accuracy": 0.7078651685393258
+      },
+      "3.1": {
+        "name": "Premature termination",
+        "support": 183,
+        "predicted": 491,
+        "precision": 0.3319755600814664,
+        "recall": 0.8907103825136612,
+        "f1": 0.483679525222552,
+        "accuracy": 0.6741573033707865
+      },
+      "3.2": {
+        "name": "No or incomplete verification",
+        "support": 383,
+        "predicted": 937,
+        "precision": 0.39167556029882605,
+        "recall": 0.95822454308094,
+        "f1": 0.5560606060606061,
+        "accuracy": 0.45131086142322097
+      },
+      "3.3": {
+        "name": "Incorrect verification",
+        "support": 429,
+        "predicted": 561,
+        "precision": 0.5044563279857398,
+        "recall": 0.6596736596736597,
+        "f1": 0.5717171717171717,
+        "accuracy": 0.602996254681648
+      }
+    },
+    "macro_f1": 0.5212118473397392,
+    "micro_f1": 0.5708657108460107,
+    "mean_accuracy": 0.737760834670947,
+    "trace_f1": 0.4555997781328969,
+    "n": 1068
+  }
+}

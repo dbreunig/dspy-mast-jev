@@ -1,0 +1,334 @@
+{
+  "train_score_before": 0.4743,
+  "train_score": 0.5637,
+  "fitted": [
+    {
+      "predictor": "judge_window",
+      "field": "disobey_task_spec",
+      "parameter": "threshold",
+      "train_score": 0.4743,
+      "train_score_at_start": 0.4743,
+      "observed": {
+        "calls": 1205,
+        "distinct": 91,
+        "min": 0.06,
+        "max": 0.97,
+        "candidates": 40
+      },
+      "fold_check": {
+        "passed": 0,
+        "failed": 1
+      },
+      "train_score_original": 0.4743,
+      "skipped": "fitted behavior did not beat the original"
+    },
+    {
+      "predictor": "judge_window",
+      "field": "disobey_role_spec",
+      "parameter": "threshold",
+      "value": 0.9,
+      "train_score": 0.4835,
+      "train_score_at_start": 0.4743,
+      "observed": {
+        "calls": 1205,
+        "distinct": 79,
+        "min": 0.07,
+        "max": 0.86,
+        "candidates": 40
+      },
+      "fold_check": {
+        "passed": 1,
+        "failed": 0
+      },
+      "train_score_original": 0.4743
+    },
+    {
+      "predictor": "judge_window",
+      "field": "step_repetition",
+      "parameter": "threshold",
+      "value": 0.32,
+      "train_score": 0.4917,
+      "train_score_at_start": 0.4835,
+      "observed": {
+        "calls": 1205,
+        "distinct": 94,
+        "min": 0.04,
+        "max": 0.97,
+        "candidates": 40
+      },
+      "fold_check": {
+        "passed": 1,
+        "failed": 0
+      },
+      "train_score_original": 0.4835
+    },
+    {
+      "predictor": "judge_window",
+      "field": "loss_of_history",
+      "parameter": "threshold",
+      "value": 0.95,
+      "train_score": 0.4943,
+      "train_score_at_start": 0.4917,
+      "observed": {
+        "calls": 1205,
+        "distinct": 83,
+        "min": 0.03,
+        "max": 0.9,
+        "candidates": 40
+      },
+      "fold_check": {
+        "passed": 1,
+        "failed": 0
+      },
+      "train_score_original": 0.4917
+    },
+    {
+      "predictor": "judge_window",
+      "field": "unaware_of_termination",
+      "parameter": "threshold",
+      "value": 0.47,
+      "train_score": 0.4961,
+      "train_score_at_start": 0.4943,
+      "observed": {
+        "calls": 1205,
+        "distinct": 89,
+        "min": 0.04,
+        "max": 0.92,
+        "candidates": 40
+      },
+      "fold_check": {
+        "passed": 1,
+        "failed": 0
+      },
+      "train_score_original": 0.4943
+    },
+    {
+      "predictor": "judge_window",
+      "field": "conversation_reset",
+      "parameter": "threshold",
+      "value": 0.9,
+      "train_score": 0.499,
+      "train_score_at_start": 0.4961,
+      "observed": {
+        "calls": 1205,
+        "distinct": 79,
+        "min": 0.03,
+        "max": 0.95,
+        "candidates": 40
+      },
+      "fold_check": {
+        "passed": 1,
+        "failed": 0
+      },
+      "train_score_original": 0.4961
+    },
+    {
+      "predictor": "judge_window",
+      "field": "fail_to_clarify",
+      "parameter": "threshold",
+      "train_score": 0.499,
+      "train_score_at_start": 0.499,
+      "observed": {
+        "calls": 1205,
+        "distinct": 89,
+        "min": 0.05,
+        "max": 0.94,
+        "candidates": 40
+      },
+      "fold_check": {
+        "passed": 0,
+        "failed": 1
+      },
+      "train_score_original": 0.499,
+      "skipped": "fitted behavior did not beat the original"
+    },
+    {
+      "predictor": "judge_window",
+      "field": "task_derailment",
+      "parameter": "threshold",
+      "value": 0.16,
+      "train_score": 0.5018,
+      "train_score_at_start": 0.499,
+      "observed": {
+        "calls": 1205,
+        "distinct": 94,
+        "min": 0.03,
+        "max": 0.97,
+        "candidates": 40
+      },
+      "fold_check": {
+        "passed": 1,
+        "failed": 0
+      },
+      "train_score_original": 0.499
+    },
+    {
+      "predictor": "judge_window",
+      "field": "info_withholding",
+      "parameter": "threshold",
+      "value": 0.96,
+      "train_score": 0.5084,
+      "train_score_at_start": 0.5018,
+      "observed": {
+        "calls": 1205,
+        "distinct": 82,
+        "min": 0.08,
+        "max": 0.91,
+        "candidates": 40
+      },
+      "fold_check": {
+        "passed": 1,
+        "failed": 0
+      },
+      "train_score_original": 0.5018
+    },
+    {
+      "predictor": "judge_window",
+      "field": "ignored_input",
+      "parameter": "threshold",
+      "train_score": 0.5084,
+      "train_score_at_start": 0.5084,
+      "observed": {
+        "calls": 1205,
+        "distinct": 91,
+        "min": 0.04,
+        "max": 0.95,
+        "candidates": 40
+      },
+      "fold_check": {
+        "passed": 0,
+        "failed": 1
+      },
+      "train_score_original": 0.5084,
+      "skipped": "fitted behavior did not beat the original"
+    },
+    {
+      "predictor": "judge_window",
+      "field": "reasoning_action_mismatch",
+      "parameter": "threshold",
+      "value": 0.27,
+      "train_score": 0.5209,
+      "train_score_at_start": 0.5084,
+      "observed": {
+        "calls": 1205,
+        "distinct": 89,
+        "min": 0.05,
+        "max": 0.93,
+        "candidates": 40
+      },
+      "fold_check": {
+        "passed": 1,
+        "failed": 0
+      },
+      "train_score_original": 0.5084
+    },
+    {
+      "predictor": "judge_window",
+      "field": "premature_termination",
+      "parameter": "threshold",
+      "value": 0.98,
+      "train_score": 0.5278,
+      "train_score_at_start": 0.5209,
+      "observed": {
+        "calls": 1205,
+        "distinct": 93,
+        "min": 0.05,
+        "max": 0.97,
+        "candidates": 40
+      },
+      "fold_check": {
+        "passed": 1,
+        "failed": 0
+      },
+      "train_score_original": 0.5209
+    },
+    {
+      "predictor": "judge_window",
+      "field": "no_or_incomplete_verification",
+      "parameter": "threshold",
+      "value": 0.64,
+      "train_score": 0.538,
+      "train_score_at_start": 0.5278,
+      "observed": {
+        "calls": 1205,
+        "distinct": 71,
+        "min": 0.18,
+        "max": 0.94,
+        "candidates": 40
+      },
+      "fold_check": {
+        "passed": 1,
+        "failed": 0
+      },
+      "train_score_original": 0.5278
+    },
+    {
+      "predictor": "judge_window",
+      "field": "incorrect_verification",
+      "parameter": "threshold",
+      "value": 0.42,
+      "train_score": 0.5444,
+      "train_score_at_start": 0.538,
+      "observed": {
+        "calls": 1205,
+        "distinct": 89,
+        "min": 0.08,
+        "max": 0.96,
+        "candidates": 40
+      },
+      "fold_check": {
+        "passed": 1,
+        "failed": 0
+      },
+      "train_score_original": 0.538
+    },
+    {
+      "predictor": "judge_outcome",
+      "field": "ending",
+      "parameter": "weights",
+      "value": {
+        "finished": 65.4,
+        "stopped_early": 1.0,
+        "ran_on": 1.0,
+        "unclear": 1.0
+      },
+      "train_score": 0.5505,
+      "train_score_at_start": 0.5444,
+      "observed": {
+        "calls": 329,
+        "candidates": 160
+      },
+      "fold_check": {
+        "passed": 1,
+        "failed": 3
+      },
+      "train_score_original": 0.5444
+    },
+    {
+      "predictor": "judge_outcome",
+      "field": "verification",
+      "parameter": "cuts",
+      "value": [
+        0.5,
+        0.6,
+        2.03
+      ],
+      "train_score": 0.5637,
+      "train_score_at_start": 0.5505,
+      "observed": {
+        "calls": 329,
+        "distinct": 213,
+        "min": 0.0,
+        "max": 3.0,
+        "candidates": 118
+      },
+      "fold_check": {
+        "passed": 2,
+        "failed": 0
+      },
+      "train_score_original": 0.5505
+    }
+  ],
+  "val_score_before": 0.4448,
+  "val_score": 0.5356
+}

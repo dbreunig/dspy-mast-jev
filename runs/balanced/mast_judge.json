@@ -1,0 +1,111 @@
+{
+  "judge_window": {
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature": {
+      "instructions": "Inspect an excerpt from the log of a multi-agent system working on a task. Judge only what the excerpt shows. The task statement comes from the start of the same log.",
+      "fields": [
+        {
+          "prefix": "Task:",
+          "description": "The opening of the log, where the task and the agents' roles are stated"
+        },
+        {
+          "prefix": "Window Position:",
+          "description": "Where the excerpt sits in the full log"
+        },
+        {
+          "prefix": "Trace Window:",
+          "description": "The excerpt of the log to judge"
+        },
+        {
+          "prefix": "Disobey Task Spec:",
+          "description": "In `inputs.trace_window`, does an agent produce work that breaks a stated requirement or constraint of the task in `inputs.task`?"
+        },
+        {
+          "prefix": "Disobey Role Spec:",
+          "description": "In `inputs.trace_window`, does an agent act outside the role it was assigned, doing another agent's job or refusing its own?"
+        },
+        {
+          "prefix": "Step Repetition:",
+          "description": "In `inputs.trace_window`, does an agent redo a step, message, or action that was already completed, without a new reason?"
+        },
+        {
+          "prefix": "Loss Of History:",
+          "description": "In `inputs.trace_window`, does an agent lose track of earlier context and act as if recent messages or results never happened?"
+        },
+        {
+          "prefix": "Unaware Of Termination:",
+          "description": "In `inputs.trace_window`, do the agents keep going when they should stop, because they miss that the task is finished or cannot progress?"
+        },
+        {
+          "prefix": "Conversation Reset:",
+          "description": "In `inputs.trace_window`, does the conversation restart from the beginning without a reason, dropping the progress made so far?"
+        },
+        {
+          "prefix": "Fail To Clarify:",
+          "description": "In `inputs.trace_window`, does an agent proceed on unclear, missing, or contradictory information instead of asking for clarification?"
+        },
+        {
+          "prefix": "Task Derailment:",
+          "description": "In `inputs.trace_window`, does an agent drift away from the objective in `inputs.task` and work on something irrelevant or different?"
+        },
+        {
+          "prefix": "Info Withholding:",
+          "description": "In `inputs.trace_window`, does an agent hold important information that it fails to pass to the agent who needs it?"
+        },
+        {
+          "prefix": "Ignored Input:",
+          "description": "In `inputs.trace_window`, does an agent ignore a suggestion, correction, or warning from another agent?"
+        },
+        {
+          "prefix": "Reasoning Action Mismatch:",
+          "description": "In `inputs.trace_window`, does an agent's action or output contradict its own stated reasoning or conclusion?"
+        },
+        {
+          "prefix": "Premature Termination:",
+          "description": "In `inputs.trace_window`, do the agents end the task before the objective is met or before needed information or checks are complete?"
+        },
+        {
+          "prefix": "No Or Incomplete Verification:",
+          "description": "In `inputs.trace_window`, is a result accepted without a check, or does the checking stop before it covers the result?"
+        },
+        {
+          "prefix": "Incorrect Verification:",
+          "description": "In `inputs.trace_window`, does a check run but reach the wrong verdict or look only at the surface of the work?"
+        }
+      ]
+    },
+    "fields": {
+      "disobey_task_spec": {
+        "threshold": 0.44
+      },
+      "unaware_of_termination": {
+        "threshold": 0.47
+      },
+      "conversation_reset": {
+        "threshold": 0.29
+      },
+      "fail_to_clarify": {
+        "threshold": 0.43
+      },
+      "task_derailment": {
+        "threshold": 0.16
+      },
+      "premature_termination": {
+        "threshold": 0.67
+      },
+      "incorrect_verification": {
+        "threshold": 0.39
+      }
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.12",
+      "dspy": "3.4.0",
+      "cloudpickle": "3.1"
+    }
+  }
+}

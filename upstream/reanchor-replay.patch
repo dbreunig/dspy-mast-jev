@@ -1,0 +1,282 @@
+diff --git a/dspy/adapters/decision.py b/dspy/adapters/decision.py
+index b8dc80526..198f0601a 100644
+--- a/dspy/adapters/decision.py
++++ b/dspy/adapters/decision.py
+@@ -26,6 +26,34 @@ def record_evidence():
+         yield log
+ 
+ 
++@contextmanager
++def replay_answers():
++    """Reuse raw answers to repeated decision requests in this execution context and its DSPy workers.
++
++    A request repeats when the client, signature, question settings, demos, inputs, and LM
++    arguments all match an earlier call. Its stored answers are decoded again under the current
++    thresholds, cuts, and weights, which change how answers are read but not what is asked.
++    Only clients that cache take part, since an uncached client would answer a repeat afresh.
++    Replayed calls skip the client, so they add no history or usage.
++    """
++    with settings.context(_decision_replay=({}, threading.Lock())):
++        yield
++
++
++def _frozen(value):
++    """A hashable form of a request part, or raise TypeError when there is none."""
++    if isinstance(value, dict):
++        return tuple(sorted((k, _frozen(v)) for k, v in value.items()))
++    if isinstance(value, (list, tuple)):
++        return tuple(_frozen(v) for v in value)
++    if isinstance(value, BaseModel):
++        return (type(value), _frozen(value.model_dump()))
++    if hasattr(value, "toDict"):  # dspy.Example
++        return (type(value), _frozen(value.toDict()))
++    hash(value)
++    return value
++
++
+ @lru_cache(maxsize=256)
+ def evidence_type(kind):
+     """Closed schemas work with JSON structured outputs as well as chat adapters."""
+@@ -135,12 +163,55 @@ class DecisionAdapter:
+             results.append({**completion, **self.state._decode(answers)})
+         return results
+ 
++    def _replay_key(self, lm, lm_kwargs, signature, demos, inputs):
++        """This request's key in the open replay store, or None when it cannot be replayed."""
++        if (
++            settings.get("_decision_replay") is None
++            or not getattr(lm, "cache", False)
++            or lm_kwargs.get("cache") is False
++        ):
++            return None
++        questions = {
++            name: {k: v for k, v in config.items() if k in ("instructions", "criteria")}
++            for name, config in self.state.fields.items()
++        }
++        try:
++            key = (
++                id(lm),
++                self.system_one,
++                signature,
++                _frozen(questions),
++                _frozen(demos),
++                _frozen(inputs),
++                _frozen(lm_kwargs),
++            )
++            hash(key)
++        except TypeError:
++            return None
++        return key
++
++    @staticmethod
++    def _store(key, completions):
++        answers, lock = settings.get("_decision_replay")
++        with lock:
++            answers[key] = completions
++
+     def __call__(self, lm, lm_kwargs, signature, demos, inputs):
++        key = self._replay_key(lm, lm_kwargs, signature, demos, inputs)
++        if key is not None and key in settings.get("_decision_replay")[0]:
++            return self._decode(settings.get("_decision_replay")[0][key])
+         request = self._prepare(signature, demos, inputs, lm_kwargs)
+         completions = [lm(**request)] if self.system_one else self.adapter(lm, **request)
++        if key is not None:
++            self._store(key, completions)
+         return self._decode(completions)
+ 
+     async def acall(self, lm, lm_kwargs, signature, demos, inputs):
++        key = self._replay_key(lm, lm_kwargs, signature, demos, inputs)
++        if key is not None and key in settings.get("_decision_replay")[0]:
++            return self._decode(settings.get("_decision_replay")[0][key])
+         request = self._prepare(signature, demos, inputs, lm_kwargs)
+         completions = [await lm.acall(**request)] if self.system_one else await self.adapter.acall(lm, **request)
++        if key is not None:
++            self._store(key, completions)
+         return self._decode(completions)
+diff --git a/dspy/teleprompt/reanchor/reanchor.py b/dspy/teleprompt/reanchor/reanchor.py
+index bb51e6b7e..348fb7049 100644
+--- a/dspy/teleprompt/reanchor/reanchor.py
++++ b/dspy/teleprompt/reanchor/reanchor.py
+@@ -1,10 +1,12 @@
+ """Fit a program's decision thresholds, cuts, and weights against the metric."""
+ 
++import contextlib
+ import json
+ import logging
+ from pathlib import Path
+ from typing import Any
+ 
++from dspy.adapters.decision import replay_answers
+ from dspy.teleprompt.reanchor.calibrate import caches, calibrate, predictors, run
+ from dspy.teleprompt.teleprompt import Teleprompter
+ from dspy.utils.annotation import experimental
+@@ -32,17 +34,21 @@ class ReAnchor(Teleprompter):
+         log_dir: When set, report.json is written here.
+         require_cache: When True, check caching on statically bound or globally configured clients.
+             Set it to False for runtime client selection or to allow uncached requests.
++        replay: When True, each repeated request in a calibration reuses the raw answers of its
++            first call, decoded under the current settings, instead of being rebuilt and looked
++            up in the cache. Only clients that cache take part.
+ 
+     After `compile`, `report` holds the fitted parameters and the metric's mean before and after
+     calibration, on the training set and on the validation set when one is given.
+     """
+ 
+-    def __init__(self, metric, *, num_threads=None, log_dir=None, require_cache=True):
++    def __init__(self, metric, *, num_threads=None, log_dir=None, require_cache=True, replay=True):
+         super().__init__()
+         self.metric = metric
+         self.num_threads = num_threads
+         self.log_dir = Path(log_dir) if log_dir else None
+         self.require_cache = require_cache
++        self.replay = replay
+         self.report: dict[str, Any] = {}
+ 
+     def compile(self, student, *, trainset, valset=None):
+@@ -66,16 +72,21 @@ class ReAnchor(Teleprompter):
+                 "Enable the client's cache, or pass require_cache=False to calibrate anyway."
+             )
+ 
+-        logger.info("answering %d training examples", len(trainset))
+-        before = self._score(program, trainset, progress=True)
+-        val_before = self._score(program, valset) if valset else None
+-        logger.info("fitting thresholds, cuts, and weights")
+-        fitted = calibrate(program, trainset, self.metric, num_threads=self.num_threads)
+-        self.report = {"train_score_before": before, "train_score": self._score(program, trainset), "fitted": fitted}
+-        logger.info("calibrated: train %s -> %s", before, self.report["train_score"])
+-        if valset:
+-            self.report.update(val_score_before=val_before, val_score=self._score(program, valset))
+-            logger.info("validation: %s -> %s", val_before, self.report["val_score"])
++        with replay_answers() if self.replay else contextlib.nullcontext():
++            logger.info("answering %d training examples", len(trainset))
++            before = self._score(program, trainset, progress=True)
++            val_before = self._score(program, valset) if valset else None
++            logger.info("fitting thresholds, cuts, and weights")
++            fitted = calibrate(program, trainset, self.metric, num_threads=self.num_threads)
++            self.report = {
++                "train_score_before": before,
++                "train_score": self._score(program, trainset),
++                "fitted": fitted,
++            }
++            logger.info("calibrated: train %s -> %s", before, self.report["train_score"])
++            if valset:
++                self.report.update(val_score_before=val_before, val_score=self._score(program, valset))
++                logger.info("validation: %s -> %s", val_before, self.report["val_score"])
+ 
+         if self.log_dir:
+             self.log_dir.mkdir(parents=True, exist_ok=True)
+diff --git a/tests/teleprompt/reanchor/test_reanchor_replay.py b/tests/teleprompt/reanchor/test_reanchor_replay.py
+new file mode 100644
+index 000000000..f02ef0d7d
+--- /dev/null
++++ b/tests/teleprompt/reanchor/test_reanchor_replay.py
+@@ -0,0 +1,109 @@
++"""ReAnchor replays raw answers to repeated requests within one calibration."""
++
++import asyncio
++
++import pytest
++
++import dspy
++from dspy.adapters.decision import replay_answers
++from dspy.experimental import ReAnchor
++from tests.teleprompt.reanchor.fakes import noul
++
++
++def leaning(state, name, q):
++    pair = state["inputs"]["pair"]
++    if pair.endswith("same-tricky"):
++        return noul(0.7)
++    return noul(0.9 if "same" in pair else 0.7)
++
++
++class Sig(dspy.Signature):
++    pair: str = dspy.InputField()
++    match: bool = dspy.OutputField(desc="Are the two the same?")
++
++
++class Followup(dspy.Signature):
++    pair: str = dspy.InputField()
++    verdict: str = dspy.InputField()
++    sure: bool = dspy.OutputField(desc="Is the verdict certain?")
++
++
++@pytest.fixture(autouse=True)
++def settings():
++    dspy.configure(adapter=dspy.JSONAdapter())
++
++
++def examples():
++    kinds = ["same"] * 6 + ["same-tricky"] * 4 + ["different"] * 8
++    return [dspy.Example(pair=k, match=k.startswith("same")).with_inputs("pair") for k in kinds]
++
++
++def metric(gold, pred, trace=None):
++    return float(pred.match == gold.match)
++
++
++def compile_with(replay, program=None):
++    optimizer = ReAnchor(metric, num_threads=2, replay=replay)
++    compiled = optimizer.compile(program or dspy.Predict(Sig), trainset=examples())
++    return compiled, optimizer.report
++
++
++def test_replay_fits_the_same_settings_with_one_call_per_distinct_request(system_one):
++    plain = system_one(leaning)
++    expected_program, expected_report = compile_with(replay=False)
++    replayed = system_one(leaning)
++    program, report = compile_with(replay=True)
++    assert program.fields == expected_program.fields and report == expected_report
++    assert len(replayed.calls) == len({state["inputs"]["pair"] for state, _ in plain.calls}) == 3
++    assert len(plain.calls) > 10 * len(replayed.calls)
++
++
++def test_an_uncached_client_is_not_replayed(system_one):
++    client = system_one(leaning, cache=False)
++    ReAnchor(metric, num_threads=2, require_cache=False).compile(dspy.Predict(Sig), trainset=examples())
++    with_replay = len(client.calls)
++    client.calls.clear()
++    ReAnchor(metric, num_threads=2, require_cache=False, replay=False).compile(dspy.Predict(Sig), trainset=examples())
++    assert with_replay == len(client.calls)
++
++
++class Chained(dspy.Module):
++    """The second request's inputs depend on the first decision, so new thresholds produce new requests."""
++
++    def __init__(self):
++        super().__init__()
++        self.judge = dspy.Predict(Sig)
++        self.check = dspy.Predict(Followup)
++
++    def forward(self, pair):
++        match = self.judge(pair=pair).match
++        sure = self.check(pair=pair, verdict="same" if match else "different").sure
++        return dspy.Prediction(match=match and sure)
++
++
++def chained(state, name, q):
++    if name == "sure":
++        return noul(0.8 if state["inputs"]["verdict"] == "same" else 0.6)
++    return leaning(state, name, q)
++
++
++def test_a_request_that_changes_with_an_earlier_decision_reaches_the_client(system_one):
++    system_one(chained)
++    expected_program, expected_report = compile_with(replay=False, program=Chained())
++    client = system_one(chained)
++    program, report = compile_with(replay=True, program=Chained())
++    assert program.dump_state() == expected_program.dump_state() and report == expected_report
++    verdicts = {(s["inputs"]["pair"], s["inputs"]["verdict"]) for s, _ in client.calls if "verdict" in s["inputs"]}
++    assert ("same", "different") in verdicts and ("same", "same") in verdicts
++
++
++def test_async_calls_are_replayed(system_one):
++    client = system_one(leaning)
++    predict = dspy.Predict(Sig)
++
++    async def twice():
++        return [await predict.acall(pair="same"), await predict.acall(pair="same")]
++
++    with replay_answers():
++        first, second = asyncio.run(twice())
++    assert first.match == second.match and len(client.calls) == 1
